@@ -19,6 +19,8 @@
 
 #define REDISSYNCCLIENT_REDISBUFFER_H
 
+#define __suseconds_t suseconds_t
+
 #include <boost/variant.hpp>
 
 #include <string>
@@ -544,7 +546,7 @@ public:
             std::function<void(RedisValue)> handler = dummyHandler);
 
     // Subscribe to channel. Handler msgHandler will be called
-    // when someone publish message on channel. Call unsubscribe 
+    // when someone publish message on channel. Call unsubscribe
     // to stop the subscription.
      Handle subscribe(const std::string &channelName,
                                        std::function<void(std::vector<char> msg)> msgHandler,
@@ -560,7 +562,7 @@ public:
      void punsubscribe(const Handle &handle);
 
     // Subscribe to channel. Handler msgHandler will be called
-    // when someone publish message on channel; it will be 
+    // when someone publish message on channel; it will be
     // unsubscribed after call.
      void singleShotSubscribe(
             const std::string &channel,

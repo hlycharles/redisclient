@@ -147,7 +147,7 @@ RedisAsyncClient::Handle RedisAsyncClient::subscribe(
         std::function<void(std::vector<char> msg)> msgHandler,
         std::function<void(RedisValue)> handler)
 {
-    auto handleId = pimpl->subscribe("subscribe", channel, msgHandler, handler);    
+    auto handleId = pimpl->subscribe("subscribe", channel, msgHandler, handler);
     return { handleId , channel };
 }
 
@@ -258,7 +258,6 @@ namespace
     static const char crlf[] = {'\r', '\n'};
     inline void bufferAppend(std::vector<char> &vec, const std::string &s);
     inline void bufferAppend(std::vector<char> &vec, const std::vector<char> &s);
-    inline void bufferAppend(std::vector<char> &vec, const char *s);
     inline void bufferAppend(std::vector<char> &vec, char c);
     template<size_t size>
     inline void bufferAppend(std::vector<char> &vec, const char (&s)[size]);
@@ -279,11 +278,6 @@ namespace
     inline void bufferAppend(std::vector<char> &vec, const std::vector<char> &s)
     {
         vec.insert(vec.end(), s.begin(), s.end());
-    }
-
-    inline void bufferAppend(std::vector<char> &vec, const char *s)
-    {
-        vec.insert(vec.end(), s, s + strlen(s));
     }
 
     inline void bufferAppend(std::vector<char> &vec, char c)
@@ -1508,7 +1502,7 @@ void RedisSyncClient::connect(const boost::asio::ip::tcp::endpoint &endpoint,
         return;
     }
 
-    arg &= (~O_NONBLOCK); 
+    arg &= (~O_NONBLOCK);
 
     if (fcntl(socket, F_SETFL, arg) < 0)
     {
